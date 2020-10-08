@@ -1,8 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { PersistGate } from 'redux-persist/integration/react';
+// import { createStore } from 'redux';
 
-import reducer from '../../reducers/index'
+// import reducer from '../../reducers/index'
 
 import TodoList from '../todolist'
 import AddTodo from '../AddTodo';
@@ -15,12 +16,15 @@ import { configureStore } from '../../store';
 //     reducer
 // )
 
-const { store, persistor } = configureStore();
+const { store, persistor} = configureStore();
 
 const App = () => (
     <Provider store={store}>
-        <AddTodo />
-        <TodoList />
+        <PersistGate loading={null} persistor={persistor}>
+
+            <AddTodo />
+            <TodoList />
+        </PersistGate>
     </Provider>
 )
 

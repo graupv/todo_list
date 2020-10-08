@@ -3,9 +3,9 @@ import { combineReducers } from 'redux';
 import * as types from '../types/todo';
 
 const todos = (state = [], action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.ADD_TODO: {
-            return [...state, todo(undefined, action)]
+            return [...state, todo(null, action)]
         }
         case types.COMPLETE_TODO: {
             return state.map(to => todo(to, action))
@@ -21,8 +21,8 @@ const todo = (state = {}, action) => {
     switch(action.type) {
         case types.ADD_TODO: {
             return {
-                id: action.id,
-                description: action.description,
+                id: action.payload.id,
+                description: action.payload.description,
                 completed: false
             }
         }

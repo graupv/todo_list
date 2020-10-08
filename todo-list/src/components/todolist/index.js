@@ -4,10 +4,15 @@ import Todo from '../../components/todo/index'
 
 import * as selectors from '../../reducers/todo';
 
-const TodoList = ({todos = []}) => {
+let testTodos = [
+    {id:1,description:'al', completed: false},
+    {id:2,description:'addl', completed: true},
+]
+
+const TodoList = ({todos}) => {
     
-    const [completeCount, changeCompleteCount] = useState(0);
-    const [incompleteCount, changeIncompleteCount] = useState(0);
+    const [completeCount, changeCompleteCount] = useState('0');
+    const [incompleteCount, changeIncompleteCount] = useState('0');
     
     // -> hooks
     return (
@@ -18,9 +23,9 @@ const TodoList = ({todos = []}) => {
                 <div className="titulo">Incompletos</div>
                 <div className="todocont">
                 {
-                    todos.map((todo, index) => {
+                    testTodos.map((todo, index) => {
                         if (!todo.completed) { 
-                            changeIncompleteCount(incompleteCount += 1);
+                            // changeIncompleteCount(incompleteCount += 1);
                             return <Todo index={index} description={todo.description} completed={todo.completed} />
                         }
                     })
@@ -34,10 +39,12 @@ const TodoList = ({todos = []}) => {
             <div className="subcont">
                 <div className="titulo">Completos</div>
                 <div className="todocont">
+                    {console.log("test")}
                 {
-                    todos.map((todo, index) => {
+                    testTodos.map((todo, index) => {
+                        console.log(todo)
                         if (todo.completed) { 
-                            changeCompleteCount(completeCount += 1);
+                            // changeCompleteCount(completeCount += 1);
                             return <Todo index={index} description={todo.description} completed={todo.completed} />
                         }
                     })

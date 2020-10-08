@@ -1,11 +1,8 @@
 import * as types from '../types/todo';
 
-export const addTodo = (description) => ({
+export const addTodo = (todo) => ({
     type: types.ADD_TODO,
-    payload: {
-        id,
-        description
-    } 
+    payload: todo
  });
 
 export const completeTodo = (id) => ({

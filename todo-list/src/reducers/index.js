@@ -10,5 +10,5 @@ const reducer = combineReducers({
 export default reducer;
 
 export const getTodos = (state) => todosSelectors.getTodos(state.todosReducer);
-export const getTodo = (state, index) => todosSelectors.getTodos(state.todosReducer[index]);
+export const getTodo = (state, index) => todosSelectors.getTodo(state.todosReducer, index);
 
