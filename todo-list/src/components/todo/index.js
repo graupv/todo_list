@@ -10,7 +10,8 @@ import * as selectors from '../../reducers/';
 const Todo = ({
     index,
     description,
-    completed
+    completed,
+    onClick
 }) => (
 <div className="container">
     <div className="name">

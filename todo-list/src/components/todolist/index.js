@@ -4,7 +4,7 @@ import Todo from '../../components/todo/index'
 
 import * as selectors from '../../reducers/todo';
 
-const TodoList = ({todos}) => {
+const TodoList = ({todos = []}) => {
     
     let completeCount = 0;
     let incompleteCount = 0;
@@ -55,7 +55,7 @@ const TodoList = ({todos}) => {
 
 export default connect(
     state => ({
-        todos: selectors.getTodos(state)
+        todos: selectors.getTodos(state.todos)
     }),
     undefined
 )(TodoList)
