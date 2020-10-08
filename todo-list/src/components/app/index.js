@@ -9,10 +9,13 @@ import AddTodo from '../AddTodo';
 
 import './styles.css';
 
-// import { configureStore } from '../../store';
-const store = createStore(
-    reducer
-)
+import { configureStore } from '../../store';
+
+// const store = createStore(
+//     reducer
+// )
+
+const { store, persistor } = configureStore();
 
 const App = () => (
     <Provider store={store}>
