@@ -4,7 +4,7 @@ import './styles.css';
 
 // import Counter from '../counter'
 
-import * as selectors from '../../reducers/todo';
+import * as selectors from '../../reducers/';
 
 
 const Todo = ({
