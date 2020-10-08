@@ -1,70 +1,131 @@
-import React, { useState } from 'react'
-import {connect} from 'react-redux'
-import Todo from '../../components/todo/index'
+import React, { useState } from 'react';
+import './styles.css'
 
-import * as selectors from '../../reducers/todo';
+import pullAt from 'lodash/pullAt'
 
-let testTodos = [
-    {id:1,description:'al', completed: false},
-    {id:2,description:'addl', completed: true},
-]
+// import Todo from '../todo'
+// import AddTodo from '../addtodo';
+import AddTodo from '../addtodo'
 
-const TodoList = ({todos}) => {
-    
-    const [completeCount, changeCompleteCount] = useState('0');
-    const [incompleteCount, changeIncompleteCount] = useState('0');
-    
-    // -> hooks
-    return (
-    <div className="container">
-        <div className='contenedor'>
-            <div className="subcont">
 
-                <div className="titulo">Incompletos</div>
-                <div className="todocont">
-                {
-                    testTodos.map((todo, index) => {
-                        if (!todo.completed) { 
-                            // changeIncompleteCount(incompleteCount += 1);
-                            return <Todo index={index} description={todo.description} completed={todo.completed} />
-                        }
-                    })
+
+const TodoList = () => {
+
+   const [todos, setTodos] = useState([]);
+   const [p, setP] = useState(0);
+   const [f, setF] = useState(0);
+
+   const toggleComplete = i => {
+        setTodos(todos.map(
+            (todo, k) => {
+                if (k === i) {
+                    if (todo.complete === false) {
+                        setP(p => p - 1)
+                        setF(f => f + 1)
+                    } else {
+                        setP(p => p + 1)
+                        setF(f => f - 1)
+                    }
+                    return {
+                        
+                            ...todo,
+                            complete: !todo.complete
+                        
+                    }
+                } else { return todo}
                 }
-                </div>
-                <div className="contador">
-                    {incompleteCount}
-                </div>
-            </div>
-           
-            <div className="subcont">
-                <div className="titulo">Completos</div>
-                <div className="todocont">
-                    {console.log("test")}
-                {
-                    testTodos.map((todo, index) => {
-                        console.log(todo)
-                        if (todo.completed) { 
-                            // changeCompleteCount(completeCount += 1);
-                            return <Todo index={index} description={todo.description} completed={todo.completed} />
-                        }
-                    })
-                }
-                    
-                </div>
-                <div className="contador">
-                    {completeCount}
-                </div>
-            </div>
             
-        </div>
-    </div>
-)}
+            )
+            );
+        }
 
-// export default TodoList;
+    const deleteTodo = i => {
+        
+        setTodos(todos.map(
+            (todo, k) => {
+                if (k === i) {
+                    if (todo.complete === false) {
+                        setP(p => p - 1)
+                    } else {
+                        setF(f => f - 1)
+                    }
+                    return pullAt(todos, i)
 
-export default connect(
-    state => ({
-        todos: selectors.getTodos(state.todos)
-    }),
-    undefined
-)(TodoList)
+                }
+                else {
+                    return todo
+                }
+            }
+        ))
+    }
+
+    const confirmDelete = (i) => {
+
+        if (window.confirm("Delete ?")) {
+            deleteTodo(i)
+            
+        } 
+    }
+    
+        return (
+            <div className="container">
+                <div className="col">
+                    <div className="add">
+                        <AddTodo onSubmit={text => {
+                            setTodos([{text, complete:false}, ...todos])
+                            setP(p => p + 1)
+                            }} />
+                        {/* <button onSubmit={text => setTodos([{text, complete:false}, ...todos])} >Add</button> */}
+                    </div>
+                    {/* <input type="submit" value="Submit" /> */}
+                </div>
+                <div className="col">
+                    <div className="titulo">Incompletos {": " + p}</div>
+                    
+                    <div className="listcontainer">
+                        {
+                            todos.map(({text, complete}, index) => {
+                                if (complete === false) return (
+                                    <div className="todo-container">
+                                        
+                                        <div className="todo" key={index} onClick={() => toggleComplete(index)}>
+                                            <div className="text">
+                                                {text}
+                                            </div>
+                                            
+                                        </div>
+                                            <button onClick={() => confirmDelete(index)}>X</button>
+                                    </div>
+                            )}
+                            )
+                        }
+                    </div>
+                </div>
+                <div className="col">
+                    <div className="titulo">Completos {": " + f}</div>
+                    
+                    <div className="listcontainer">
+                    {
+                            todos.map(({text, complete}, index) => {
+                                if (complete === true) return (
+                                    <div className="todo-container">
+                                        <div className="todo" key={index} onClick={() => toggleComplete(index)}>
+                                            <div className="text">
+                                                    {text}
+                                            </div>
+                                        </div>
+                                            <button onClick={() => confirmDelete(index)}>X</button>
+                                    </div>
+                            )}
+                            )
+                        }
+                    </div>
+
+                </div>
+            </div>
+        );
+    
+    
+}
+
+export default TodoList;

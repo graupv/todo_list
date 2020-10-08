@@ -1,31 +1,16 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-// import { createStore } from 'redux';
-
-// import reducer from '../../reducers/index'
 
 import TodoList from '../todolist'
-import AddTodo from '../AddTodo';
 
-import './styles.css';
 
-import { configureStore } from '../../store';
-
-// const store = createStore(
-//     reducer
-// )
-
-const { store, persistor} = configureStore();
-
-const App = () => (
-    <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-
-            <AddTodo />
+const App = () => {
+    return (
+    
+        <div className="container">
+            
             <TodoList />
-        </PersistGate>
-    </Provider>
-)
+        </div>
+    
+)}
 
 export default App;

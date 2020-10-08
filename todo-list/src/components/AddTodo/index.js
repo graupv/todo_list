@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+// import './styles.css'
 
-import './styles.css';
-import * as actions from '../../actions/addTodo';
+// custom hook
+const useInputValue = useInitialValue => {
+    const [value, setValue] = useState(useInitialValue);
+    return {
+        value,
+        onChange: e=> setValue(e.target.value),
+        resetValue: () => setValue('')
+    };
+};
 
-
-export const AddTodo = ({ onClick }) => {
-  const [description, changeDescription] = useState('');
-  return (
-  <div className="add">
-    <div className="text">
-      <input value={description} onChange={e => changeDescription(e.target.value)} type="text"/>
-    </div>
-  <button className='add-button' onClick={() => {onClick(description)}}>
-    {'+'}
-  </button>
-  </div>
-)};
+const AddTodo = ({onSubmit}) => {
+    const {resetValue, ...text} = useInputValue('');
 
 
-export default connect(
-  undefined,
-  dispatch => ({
-    onClick(description) {
-      dispatch(actions.addTodo(description));
-    },
-  })
-)(AddTodo);
+    return (
+        <form onSubmit={e => {
+            e.preventDefault();
+            onSubmit(text.value);
+            resetValue()
+        }}>
+            <input {...text} />
+        </form>
+    );
+    
+};
+
+
+export default AddTodo;
