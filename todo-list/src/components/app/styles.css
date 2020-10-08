@@ -1,0 +1,12 @@
+.titulo {
+    font-weight: bold;
+}
+
+.subcont {
+    margin: auto;
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: row;
+}
