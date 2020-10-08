@@ -5,6 +5,7 @@ import { createStore } from 'redux';
 import reducer from '../../reducers/index'
 
 import TodoList from '../todolist'
+import AddTodo from '../AddTodo';
 
 import './styles.css';
 
@@ -15,6 +16,7 @@ const store = createStore(
 
 const App = () => (
     <Provider store={store}>
+        <AddTodo />
         <TodoList />
     </Provider>
 )
