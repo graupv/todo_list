@@ -33,8 +33,8 @@ const Todo = ({
 
 export default connect(
     (state, index)=> ({
-        description: selectors.getTodo(state, index).description,
-        completed: selectors.getTodo(state, index).completed,
+        description: selectors.getTodo(state.todo, index).description,
+        completed: selectors.getTodo(state.todo, index).completed,
     }),
     undefined
 )(Todo);

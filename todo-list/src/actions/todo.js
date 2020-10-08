@@ -1,6 +1,6 @@
 import * as types from '../types/todo';
 
-export const addTodo = (phrase) => ({
+export const addTodo = (description) => ({
     type: types.ADD_TODO,
     payload: {
         id,
@@ -8,7 +8,7 @@ export const addTodo = (phrase) => ({
     } 
  });
 
-export const completeTodo = (index) => ({
+export const completeTodo = (id) => ({
     type: types.COMPLETE_TODO,
-    payload: {index} 
+    payload: {id} 
  });
